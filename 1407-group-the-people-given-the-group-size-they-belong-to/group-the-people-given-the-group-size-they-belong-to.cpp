@@ -1,4 +1,5 @@
 class Solution {
+    int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
 public:
     vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
         unordered_map<int, vector<int>> temp_group;
