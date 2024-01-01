@@ -1,8 +1,8 @@
 class Solution {
 public:
-    int findContentChildren(std::vector<int>& g, std::vector<int>& s) {
-        std::sort(g.begin(), g.end());
-        std::sort(s.begin(), s.end());
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(), g.end());
+        sort(s.begin(), s.end());
         int contentChildren = 0;
         int cookieIndex = 0;
         while (cookieIndex < s.size() && contentChildren < g.size()) {
