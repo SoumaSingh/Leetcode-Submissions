@@ -1,6 +1,6 @@
 class Solution {
 public:
-
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     int bs(vector <int>& A, int target){
 
         int l = 0;
