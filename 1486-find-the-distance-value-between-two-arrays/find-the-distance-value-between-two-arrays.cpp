@@ -1,5 +1,6 @@
 class Solution {
 public:
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) 
     {
          sort(arr2.begin(),arr2.end());
