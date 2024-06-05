@@ -1,5 +1,6 @@
 class Solution {
 public:
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     int countPairs(vector<int>& nums, int target) {
        sort(nums.begin(), nums.end());
        int count=0;
