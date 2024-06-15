@@ -1,5 +1,6 @@
 class Solution {
 public:
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
         int n = profits.size();
         vector<pair<int, int>> projects(n);
