@@ -7,6 +7,7 @@ int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
         for (int i = 0; i < minutes; i++) {
             unrealizedCustomers += customers[i] * grumpy[i];
         }
+
         int maxUnrealizedCustomers = unrealizedCustomers;
         for (int i = minutes; i < n; i++) {
             unrealizedCustomers += customers[i] * grumpy[i];
@@ -16,7 +17,6 @@ int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
         }
 
         int totalCustomers = maxUnrealizedCustomers;
-
         for (int i = 0; i < n; i++) {
             totalCustomers += customers[i] * (1 - grumpy[i]);
         }
