@@ -2,27 +2,29 @@ class Solution {
 public:
 int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     int longestSubarray(vector<int>& nums, int limit) {
-        priority_queue<pair<int, int>> maxHeap;
-        priority_queue<pair<int, int>, vector<pair<int, int>>,
-                       greater<pair<int, int>>>
-            minHeap;
+        deque<int> maxDeque, minDeque;
+        int left = 0, right;
+        int maxLength = 0;
 
-        int left = 0, maxLength = 0;
-
-        for (int right = 0; right < nums.size(); ++right) {
-            maxHeap.push({nums[right], right});
-            minHeap.push({nums[right], right});
-
-            while (maxHeap.top().first - minHeap.top().first > limit) {
-                left = min(maxHeap.top().second, minHeap.top().second) + 1;
-                while (maxHeap.top().second < left) {
-                    maxHeap.pop();
-                }
-                while (minHeap.top().second < left) {
-                    minHeap.pop();
-                }
+        for (right = 0; right < nums.size(); ++right) {
+            while (!maxDeque.empty() && maxDeque.back() < nums[right]) {
+                maxDeque.pop_back();
             }
+            maxDeque.push_back(nums[right]);
+            while (!minDeque.empty() && minDeque.back() > nums[right]) {
+                minDeque.pop_back();
+            }
+            minDeque.push_back(nums[right]);
 
+            while (maxDeque.front() - minDeque.front() > limit) {
+                if (maxDeque.front() == nums[left]) {
+                    maxDeque.pop_front();
+                }
+                if (minDeque.front() == nums[left]) {
+                    minDeque.pop_front();
+                }
+                ++left;
+            }
             maxLength = max(maxLength, right - left + 1);
         }
         return maxLength;
