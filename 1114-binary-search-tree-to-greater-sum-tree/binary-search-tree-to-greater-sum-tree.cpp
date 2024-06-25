@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
+    int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     TreeNode* bstToGst(TreeNode* root) {
          int nodeSum = 0;
         bstToGstHelper(root, nodeSum);
