@@ -1,32 +1,40 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     TreeNode* bstToGst(TreeNode* root) {
-         int nodeSum = 0;
-        bstToGstHelper(root, nodeSum);
+        int sum = 0;
+        TreeNode* node = root;
+
+        while (node != nullptr) {
+            if (node->right == nullptr) {
+                sum += node->val;
+                node->val = sum;
+                node = node->left;
+            }
+            else {
+                TreeNode* succ = getSuccessor(node);
+                if (succ->left == nullptr) {
+                    succ->left = node;
+                    node = node->right;
+                }
+                else {
+                    succ->left = nullptr;
+                    sum += node->val;
+                    node->val = sum;
+                    node = node->left;
+                }
+            }
+        }
+
         return root;
     }
 
 private:
-    void bstToGstHelper(TreeNode* root, int& nodeSum) {
-        if (!root) {
-            return;
+    TreeNode* getSuccessor(TreeNode* node) {
+        TreeNode* succ = node->right;
+        while (succ->left != nullptr && succ->left != node) {
+            succ = succ->left;
         }
-
-        bstToGstHelper(root->right, nodeSum);
-        nodeSum += root->val;
-        root->val = nodeSum;
-        bstToGstHelper(root->left, nodeSum);
+        return succ;
     }
 };
