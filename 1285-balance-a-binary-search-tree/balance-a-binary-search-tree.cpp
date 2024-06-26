@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     TreeNode* balanceBST(TreeNode* root) {
         vector<int> inorder;
         inorderTraversal(root, inorder);
