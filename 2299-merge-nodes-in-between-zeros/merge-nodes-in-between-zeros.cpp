@@ -1,5 +1,6 @@
 class Solution {
 public:
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     ListNode* mergeNodes(ListNode* head) {
         ListNode* modify = head->next;
         ListNode* nextSum = modify;
