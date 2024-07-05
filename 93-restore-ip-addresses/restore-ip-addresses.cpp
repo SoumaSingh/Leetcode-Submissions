@@ -1,28 +1,38 @@
 class Solution {
-public:
 int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
-    vector<string> restoreIpAddresses(string s) {
-        vector<string> result;
-        string ip;
-        dfs(s,0,0,ip,result);
-        return result;
+    bool valid(const string& s, int start, int length) {
+        return length == 1 ||
+               (s[start] != '0' &&
+                (length < 3 || s.substr(start, length) <= "255"));
     }
-    void dfs(string s,int start,int step,string ip,vector<string>& result){
-        if(start==s.size()&&step==4){
-            ip.erase(ip.end()-1);
-            result.push_back(ip);
-            return;
-        }
-        if(s.size()-start>(4-step)*3) return;
-        if(s.size()-start<(4-step)) return;
-        int num=0;
-        for(int i=start;i<start+3;i++){
-            num=num*10+(s[i]-'0');
-            if(num<=255){
-                ip+=s[i];
-                dfs(s,i+1,step+1,ip+'.',result);
+
+public:
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> ans;
+        int length = s.length();
+        for (int len1 = max(1, length - 9); len1 <= 3 && len1 <= length - 3;
+             ++len1) {
+            if (!valid(s, 0, len1)) {
+                continue;
             }
-            if(num==0) break;
+            for (int len2 = max(1, length - len1 - 6);
+                 len2 <= 3 && len2 <= length - len1 - 2; ++len2) {
+                if (!valid(s, len1, len2)) {
+                    continue;
+                }
+                for (int len3 = max(1, length - len1 - len2 - 3);
+                     len3 <= 3 && len3 <= length - len1 - len2 - 1; ++len3) {
+                    if (valid(s, len1 + len2, len3) &&
+                        valid(s, len1 + len2 + len3,
+                              length - len1 - len2 - len3)) {
+                        ans.push_back(s.substr(0, len1) + "." +
+                                      s.substr(len1, len2) + "." +
+                                      s.substr(len1 + len2, len3) + "." +
+                                      s.substr(len1 + len2 + len3));
+                    }
+                }
+            }
         }
+        return ans;
     }
 };
