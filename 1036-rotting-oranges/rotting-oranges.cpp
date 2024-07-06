@@ -1,5 +1,6 @@
 class Solution {
 public:
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     int orangesRotting(vector<vector<int>>& grid) {
        int n=grid.size();
        int m=grid[0].size();
@@ -38,7 +39,7 @@ public:
             vis[nrow][ncol]!=2 && grid[nrow][ncol]==1){
             q.push({{nrow,ncol}, t+1});
             vis[nrow][ncol]=2;
-            
+            grid[nrow][ncol]=2;
             }
         }
        }
