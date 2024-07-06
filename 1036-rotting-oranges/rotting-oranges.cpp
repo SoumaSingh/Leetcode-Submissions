@@ -39,7 +39,6 @@ int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
             vis[nrow][ncol]!=2 && grid[nrow][ncol]==1){
             q.push({{nrow,ncol}, t+1});
             vis[nrow][ncol]=2;
-            grid[nrow][ncol]=2;
             }
         }
        }
