@@ -1,5 +1,6 @@
 class Solution {
 public:
+int fastio = [] {std::ios::sync_with_stdio(0); std::cin.tie(0); return 0; }();
     int findTheWinner(int n, int k) {
         queue<int> q;
         for(int i=1; i<=n; i++) q.push(i);
