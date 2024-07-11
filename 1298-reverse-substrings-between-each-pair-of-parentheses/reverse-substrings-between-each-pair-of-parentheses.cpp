@@ -8,7 +8,8 @@ public:
     string reverseParentheses(string s) {
         stack<int> p;
         string res;
-        for (char curr : s) {
+        for (int i = 0; i < s.size(); ++i) {
+            char curr = s[i];
             if (curr == '(') {
                 p.push(res.size());
             } else if (curr == ')') {
