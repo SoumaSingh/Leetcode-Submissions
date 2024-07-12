@@ -1,35 +1,55 @@
 class Solution {
 public:
-    int fastio = [] {
-        std::ios::sync_with_stdio(0);
-        std::cin.tie(0);
-        return 0;
-    }();
     int maximumGain(string s, int x, int y) {
-        int res = 0;
-        if (x > y) {
-            res += remove(s, "ab", x);
-            res += remove(s, "ba", y);
-        } else {
-            res += remove(s, "ba", y);
-            res += remove(s, "ab", x);
-        }
-        return res;
+        int totalScore = 0;
+        string highPriorityPair = x > y ? "ab" : "ba";
+        string lowPriorityPair = highPriorityPair == "ab" ? "ba" : "ab";
+
+        // First pass: remove high priority pair
+        string stringAfterFirstPass = removeSubstring(s, highPriorityPair);
+        int removedPairsCount =
+            (s.length() - stringAfterFirstPass.length()) / 2;
+
+        // Calculate score from first pass
+        totalScore += removedPairsCount * max(x, y);
+
+        // Second pass: remove low priority pair
+        string stringAfterSecondPass =
+            removeSubstring(stringAfterFirstPass, lowPriorityPair);
+        removedPairsCount =
+            (stringAfterFirstPass.length() - stringAfterSecondPass.length()) /
+            2;
+
+        // Calculate score from second pass
+        totalScore += removedPairsCount * min(x, y);
+
+        return totalScore;
     }
 
-    int remove(string& st, string target, int points) {
-        int total = 0;
-        int write = 0;
+private:
+    string removeSubstring(const string& input, const string& targetPair) {
+        stack<char> charStack;
 
-        for (int read = 0; read < st.size(); read++) {
-            st[write++] = st[read];
-            if (write > 1 && st[write - 2] == target[0] &&
-                st[write - 1] == target[1]) {
-                write -= 2;
-                total += points;
+        // Iterate through each character in the input string
+        for (char currentChar : input) {
+            // Check if current character forms the target pair with the top of
+            // the stack
+            if (currentChar == targetPair[1] && !charStack.empty() &&
+                charStack.top() == targetPair[0]) {
+                charStack
+                    .pop();  // Remove the matching character from the stack
+            } else {
+                charStack.push(currentChar);
             }
         }
-        st.erase(st.begin() + write, st.end());
-        return total;
+
+        // Reconstruct the remaining string after removing target pairs
+        string remainingChars;
+        while (!charStack.empty()) {
+            remainingChars += charStack.top();
+            charStack.pop();
+        }
+        reverse(remainingChars.begin(), remainingChars.end());
+        return remainingChars;
     }
 };
