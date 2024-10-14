@@ -6,7 +6,6 @@ public:
         for (auto& i : nums) {
             pq.push(i);
         }
-
         while (k--) {
             int maxElement = pq.top();
             ans += maxElement;
